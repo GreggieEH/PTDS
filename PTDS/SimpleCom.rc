@@ -1,0 +1,27 @@
+// SimpleCom.rc
+// resource script for the SimpleCom object
+
+#include <windows.h>
+#include "resource.h"
+
+1 typelib mylib.tlb
+
+IDD_DialogSetupPTDS DIALOGEX 0, 0, 314, 75
+CAPTION "Setup PhotoThermal Deflection Spectroscopy"
+FONT 10, "MS Shell Dlg"
+STYLE  WS_POPUP | WS_SYSMENU | WS_CAPTION | DS_MODALFRAME
+BEGIN
+	LTEXT			"Comment", IDC_STATIC, 7, 7, 50, 8
+	EDITTEXT		IDC_EDITCOMMENT, 57, 5, 250, 12
+	LTEXT			"User Name", IDC_STATIC, 7, 24, 50, 8
+	EDITTEXT		IDC_EDITUSERNAME, 57, 22, 50, 12
+	LTEXT			"Start Wave (nm)", IDC_STATIC, 7, 41, 50, 8
+	EDITTEXT		IDC_EDITSTARTWAVE, 57, 39, 40, 12
+	LTEXT			"End Wave (nm)", IDC_STATIC, 102, 41, 50, 8
+	EDITTEXT		IDC_EDITENDWAVE, 152, 39, 40, 12
+	LTEXT			"Step Size (nm)", IDC_STATIC, 7, 58, 50, 8
+	EDITTEXT		IDC_EDITSTEPSIZE, 57, 56, 40, 12
+	LTEXT			"Dwell Time (s)", IDC_STATIC, 102, 58, 50, 8
+	EDITTEXT		IDC_EDITDWELLTIME, 152, 56, 40, 12
+	DEFPUSHBUTTON	"START", IDOK, 257, 56, 50, 12
+END

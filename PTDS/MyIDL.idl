@@ -1,0 +1,105 @@
+// MyIDL.idl
+// IDL file for the Simple Com object
+
+#include "dispids.h"
+
+[
+	uuid(6F3E2A13-7334-42A2-884E-85AD90E98A9C),
+	helpstring(""),
+	version(1.0)
+]
+library PTDS
+{
+	importlib("stdole32.tlb");
+	[
+		uuid(CCEA4795-53CF-4A91-99CE-19DF217BD322),
+		helpstring("Interface")
+	]
+	dispinterface IPTDS
+	{
+	properties:
+		[id(DISPID_StartWave), bindable, helpstring("Starting wavelength for the scan")]
+		double			StartWave;
+		[id(DISPID_EndWave), bindable, helpstring("Ending wavelength for the scan")]
+		double			EndWave;
+		[id(DISPID_StepSize), bindable, helpstring("Step size in nm")]
+		double			StepSize;
+		[id(DISPID_Comment), bindable, helpstring("Comment string")]
+		BSTR			Comment;
+		[id(DISPID_DwellTime), bindable, helpstring("Dwell time in seconds")]
+		double			DwellTime;
+		[id(DISPID_TimeConstant), bindable, helpstring("Lockin time constant")]
+		double			TimeConstant;
+		[id(DISPID_ChopperFrequency), bindable, helpstring("Chopper Frequency")]
+		double			ChopperFrequency;
+		[id(DISPID_DataFile), bindable, helpstring("Data file path")]
+		BSTR			DataFile;
+		[id(DISPID_SlitWidth), bindable, helpstring("Slit width in mm")]
+		double			SlitWidth;
+		[id(DISPID_UserName), bindable, helpstring("User name for data run")]
+		BSTR			UserName;
+		[id(DISPID_LampInfo), bindable, helpstring("Lamp information")]
+		BSTR			LampInfo;
+		[id(DISPID_TimeStamp), bindable, helpstring("Time stamp")]
+		DATE			TimeStamp;
+		[id(DISPID_LockinInfo), bindable, helpstring("Lockin info")]
+		BSTR			LockinInfo;
+		[id(DISPID_MonoInfo), bindable, helpstring("Monochromator information")]
+		BSTR			MonoInfo;
+		[id(DISPID_XArray), readonly, helpstring("X array data")]
+		SAFEARRAY(double) XArray;
+		[id(DISPID_SignalArray), readonly, helpstring("Signal array data")]
+		SAFEARRAY(double) SignalArray;
+	methods:
+		[id(DISPID_DisplaySetup), helpstring("Display the setup wizard")]
+		VARIANT_BOOL	DisplaySetup(
+							[in]		long			hwndParent);
+		[id(DISPID_ScanStarted), helpstring("Scan started create data file and write header")]
+		VARIANT_BOOL	ScanStarted(
+							[in]		BSTR			workingDirectory);
+		[id(DISPID_AddDataValue), helpstring("Add data value to the current data")]
+		VARIANT_BOOL	AddDataValue(
+							[in]		double			xValue,
+							[in]		double			signalValue);
+		[id(DISPID_DisplayFilter), helpstring("Display filter info")]
+		void			DisplayFilter(
+							[in]		BSTR			filterInfo);
+		[id(DISPID_DisplayGrating), helpstring("Display grating info")]
+		void			DisplayGrating(
+							[in]		BSTR			gratingInfo);
+		[id(DISPID_ScanEnded), helpstring("Scan ended- note the total run time")]
+		void			ScanEnded(
+							[in]		BSTR			totalRunTime);
+		[id(DISPID_WriteHeader), helpstring("Form the file header")]
+		BSTR			WriteHeader();
+		[id(DISPID_ReadHeader), helpstring("Read the header")]
+		VARIANT_BOOL	ReadHeader(
+							[in]		BSTR			header);
+		[id(DISPID_SetCurrentTime), helpstring("Set the current time")]
+		void			SetCurrentTime();
+		[id(DISPID_ReadDataFile), helpstring("Read in a data file")]
+		VARIANT_BOOL	ReadDataFile(
+							[in]		BSTR			DataFile);
+	}
+	[
+		uuid(D56900BB-5B79-468F-BE4D-023413ACAC39),
+		helpstring(" event interface")
+	]
+	dispinterface _PTDS
+	{
+	properties:
+	methods:
+		[id(DISPID_Error), helpstring("Some kind of error")]
+		void		Error(
+						[in]		BSTR		err);
+	}
+	[
+		uuid(7AABE1F0-260D-4FE8-8657-6FA40A818986),
+		helpstring("class")
+	]
+	coclass PTDS
+	{
+		[default]				dispinterface			IPTDS;
+		[default, source]		dispinterface			_PTDS;
+	}
+}
